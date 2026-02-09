@@ -1,20 +1,27 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+// src/App.jsx
+import { useState } from "react";
+// import "./App.css"; // (Nếu có)
+import Header from "./Header";
+import Banner from "./Banner";
+import NewRelease from "./NewRelease";
+import { movieList } from "./movieData"; // Import data để lấy phim mặc định
 
-import Header from './Header.jsx'
-import Banner from './Banner.jsx'
-import NewRelease from './NewRelease.jsx'
+function App() {
+  const [selectedMovie, setSelectedMovie] = useState(movieList[0]);
 
-import './Header.css'
-import './Banner.css'
-// import './NewRelease.css'
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    {/* <App /> */}
-    <Header />
-    <Banner />
-    <NewRelease />
-  </StrictMode>,
-)
+  const handleMovieSelect = (movie) => {
+    setSelectedMovie(movie);
+  };
 
-export default App
+  return (
+    <div>
+      <Header />
+
+      <Banner movie={selectedMovie} />
+
+      <NewRelease onMovieClick={handleMovieSelect} />
+    </div>
+  );
+}
+
+export default App;
